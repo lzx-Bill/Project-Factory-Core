@@ -3,11 +3,51 @@
 Quick validation script for skills - minimal version
 """
 
-import sys
-import os
+import json
 import re
-import yaml
+import sys
 from pathlib import Path
+
+
+def parse_frontmatter(text):
+    """Parse the small top-level YAML subset used by SKILL.md files."""
+    result = {}
+    lines = text.splitlines()
+    index = 0
+    while index < len(lines):
+        line = lines[index]
+        if not line.strip() or line.lstrip().startswith('#'):
+            index += 1
+            continue
+        if line[0].isspace():
+            index += 1  # Nested metadata is allowed but not validated here.
+            continue
+        if ':' not in line:
+            raise ValueError(f"invalid top-level frontmatter line: {line}")
+
+        key, raw_value = line.split(':', 1)
+        key, raw_value = key.strip(), raw_value.strip()
+        if raw_value in {'|', '|-', '>', '>-'}:
+            block = []
+            index += 1
+            while index < len(lines) and (not lines[index] or lines[index][0].isspace()):
+                block.append(lines[index].strip())
+                index += 1
+            result[key] = ('\n' if raw_value.startswith('|') else ' ').join(block).strip()
+            continue
+        if raw_value.startswith("'") and raw_value.endswith("'"):
+            value = raw_value[1:-1].replace("''", "'")
+        elif raw_value.startswith('"') and raw_value.endswith('"'):
+            value = json.loads(raw_value)
+        elif raw_value.lower() in {'true', 'false'}:
+            value = raw_value.lower() == 'true'
+        elif not raw_value:
+            value = {}
+        else:
+            value = raw_value
+        result[key] = value
+        index += 1
+    return result
 
 def validate_skill(skill_path):
     """Basic validation of a skill"""
@@ -30,12 +70,13 @@ def validate_skill(skill_path):
 
     frontmatter_text = match.group(1)
 
-    # Parse YAML frontmatter
+    # Parse the top-level YAML subset used by local skills. This intentionally
+    # avoids a runtime PyYAML dependency for the repository's bootstrap check.
     try:
-        frontmatter = yaml.safe_load(frontmatter_text)
+        frontmatter = parse_frontmatter(frontmatter_text)
         if not isinstance(frontmatter, dict):
             return False, "Frontmatter must be a YAML dictionary"
-    except yaml.YAMLError as e:
+    except (ValueError, json.JSONDecodeError) as e:
         return False, f"Invalid YAML in frontmatter: {e}"
 
     # Define allowed properties
