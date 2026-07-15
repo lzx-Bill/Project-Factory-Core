@@ -30,7 +30,7 @@ argument-hint: '项目审计、完整性检查、一致性验证、项目review'
 | 来源 | 内容 | 必读 |
 |------|------|------|
 | 项目目录 | `<项目根目录>/` 完整递归文件列表 | ✅ |
-| 模板参考 | `PROJECT_WIKI_TEMPLATE.md`（标准结构和页面骨架） | ✅ |
+| 模板参考 | 仓库根目录 `../../../PROJECT_WIKI_TEMPLATE.md`（唯一标准） | ✅ |
 | HOME.md | 首页导航、阶段标记、决策摘要、风险摘要 | ✅ |
 | 所有 wiki 文件 | 逐文件读取内容 | deep 模式 ✅ |
 
@@ -91,7 +91,7 @@ argument-hint: '项目审计、完整性检查、一致性验证、项目review'
 |------|------|
 | 前置 | 项目至少完成快速孵化（有 HOME.md + 最小文件集） |
 | 后置 | 修复审计问题后可进入下一阶段 |
-| 依赖读取 | `PROJECT_WIKI_TEMPLATE.md`（模板标准） |
+| 依赖读取 | `../../../PROJECT_WIKI_TEMPLATE.md`（仓库唯一模板标准） |
 
 ## Procedure
 
@@ -205,8 +205,8 @@ argument-hint: '项目审计、完整性检查、一致性验证、项目review'
 | ID | 检查项 | 判定 |
 |----|--------|------|
 | L1 | 所有文档使用中文 | 非中文 = 🟡 WARNING |
-| L2 | 关键页面有 `[REVIEW: ...]` 标注 | 缺失 = 🟢 INFO |
-| L3 | implementation-kit 含所有工具适配文件（AGENTS.md、AGENTS.md、.cursor/rules/、.github/copilot-instructions.md） | 缺失某工具 = 🟢 INFO |
+| L2 | 关键阶段存在对应 `reports/stage-review/*.json` | 缺失 = 🟢 INFO |
+| L3 | implementation-kit 含所有工具适配文件（CLAUDE.md、AGENTS.md、.cursor/rules/、.github/copilot-instructions.md） | 缺失某工具 = 🟢 INFO |
 | L4 | user-stories.md 使用标准格式（"作为\<角色\>，我希望\<能力\>，以便\<目标\>"） | 未使用 = 🟢 INFO |
 | L5 | 核心页面遵循统一页面骨架（本页目标、当前结论、依赖与关联、开放问题/风险、下一步） | 缺失槽位 = 🟢 INFO |
 | L6 | deployment.md 含最低内容：环境划分 + 依赖服务 + 部署步骤 + 回滚入口 | 缺失 = 🟡 WARNING |
@@ -245,7 +245,7 @@ argument-hint: '项目审计、完整性检查、一致性验证、项目review'
 3. 对每个异常给出：检查项 ID、描述、具体文件路径/行号、修复建议
 4. 按严重性排序：BLOCKER → WARNING → INFO
 5. 生成 `reports/audit/<timestamp>.json` 和 `.md`
-6. 呈现给用户，用 `question` 收集反馈
+6. 呈现给用户；如存在需要业务决策的 BLOCKER，再使用当前环境可用的用户输入方式确认
 
 ## 评分计算
 
@@ -268,9 +268,9 @@ argument-hint: '项目审计、完整性检查、一致性验证、项目review'
 
 | 深度 | 包含检查项 | 检查项数量 |
 |------|-----------|-----------|
-| quick | S1-S4, F1-F5, N1, P1-P2 | 11 项 |
-| standard | 全部 S/F/N/C/T/L/P | 32 项（T5 新增） |
-| deep | standard + L5 逐文件 | 32+ 项 |
+| quick | S1-S4, F1-F5, N1, P1-P2 | 12 项 |
+| standard | 全部 S/F/N/C/T/L/P | 36 项 |
+| deep | standard + L5 逐文件内容检查 | 36+ 项 |
 
 ## Target Pages
 
@@ -282,7 +282,7 @@ argument-hint: '项目审计、完整性检查、一致性验证、项目review'
 ### 执行前环境检查
 
 执行审计前，必读以下文件以获取基准：
-1. `PROJECT_WIKI_TEMPLATE.md` — 获取标准结构定义
+1. 仓库根目录 `../../../PROJECT_WIKI_TEMPLATE.md` — 获取唯一标准结构定义
 2. `<项目>/HOME.md` — 获取项目当前阶段声明
 3. 根据深度决定是否读取所有 wiki 文件
 
@@ -294,6 +294,7 @@ argument-hint: '项目审计、完整性检查、一致性验证、项目review'
 
 | 日期 | 变更 | 原因 |
 |------|------|------|
+| 2026-07-15 | 删除内置模板副本，改读仓库根模板；评审状态改查报告；修正工具文件名和检查项计数 | 消除模板漂移和审计规则自相矛盾 |
 | 2026-04-30 | v2.2 更新 F6 阶段映射表：新增一致性审查、设计并行批次（ui/security/performance/test/threat-scenarios）、量化验收等新阶段 | express-incubate v8 新增阶段，旧映射表已过时 |
 | 2026-04-27 | v2.1 新增 T5 检查项：express-incubate 孵化项目必须存在 execution-log | 复盘发现多个项目因 session 中断或 skill bug 导致 execution-log 缺失，影响孵化追溯性 |
 | 2026-04-26 | v2.0 重大增强：新增 11 项检查（S4/F5-F7/C5-C7/L4-L6/P3-P4/T4），补充 Input/Output Schema、Minimum/Complete Output、Enriched Behavior | 对 deepseek-web-proxy 审计发现原有 skill 遗漏了重复 ID、面板不完整、阶段标记过期、文档格式合规等 6 类问题 |

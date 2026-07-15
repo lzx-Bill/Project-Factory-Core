@@ -15,8 +15,10 @@ references/
 
 ## 使用方式
 
-调用 `ui-design` skill 时，这些文件会自动作为参考资源被读取。
+调用 `ui-design` Skill 时，根据任务需要按需读取，不自动加载全部参考文件。
 
 - **style-presets.md** — 风格预设定义，用于快速应用统一视觉风格
-- **page-templates.md** — 页面模板，用于常见页面布局的 ASCII 线框图
-- **component-templates.md** — 组件规范，用于组件状态和交互的模板
+- **page-templates.md** — 领域无关页面布局和状态模板
+- **component-templates.md** — 领域无关组件状态与无障碍模板
+
+所有示例只提供结构，不得作为当前项目需求或文案来源。

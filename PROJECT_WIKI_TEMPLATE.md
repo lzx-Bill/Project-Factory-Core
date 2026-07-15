@@ -33,6 +33,10 @@
 │   │   ├── tech-stack.md
 │   │   ├── system-design.md
 │   │   ├── module-map.md
+│   │   ├── ui-design.md
+│   │   ├── security.md
+│   │   ├── performance.md
+│   │   ├── threat-scenarios.md
 │   │   └── decisions/
 │   │       └── ADR-001-template.md
 │   ├── 04-data-and-api/
@@ -48,7 +52,10 @@
 │   ├── 06-quality/
 │   │   ├── acceptance-plan.md
 │   │   ├── test-cases.md
-│   │   └── known-gaps.md
+│   │   ├── known-gaps.md
+│   │   ├── consistency-report.md
+│   │   ├── quantified-checklist.md
+│   │   └── test-strategy.md
 │   ├── 07-operations/
 │   │   ├── deployment.md
 │   │   ├── monitoring.md
@@ -70,10 +77,14 @@
 │   ├── backlog.md
 │   ├── in-progress.md
 │   └── done.md
-└── reports/
+├── reports/
     ├── acceptance/
-   │   └── REPORT_TEMPLATE.json
+    │   └── REPORT_TEMPLATE.json
+    ├── stage-review/
+    ├── audit/
+    ├── execution/
     └── reviews/
+└── implementation-kit/
 ```
 
 ## HOME.md 模板
@@ -601,3 +612,4 @@
 4. 任务、Prompt、验收必须通过任务 ID 互相映射。
 5. 实现阶段推翻前期研究时，先更新 wiki，再更新 prompts、acceptance、tasks、reports。
 6. 统一页面骨架是默认推荐结构，允许按项目阶段裁剪，但不要只留空标题。
+7. 本文件是项目结构的唯一标准；Skill 不维护独立模板副本，审计和生成流程均引用本文件。

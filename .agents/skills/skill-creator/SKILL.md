@@ -32,10 +32,10 @@ argument-hint: '创建新skill、修改skill、优化skill、skill测试、skill
 
 | 文件 | 类型 | 说明 |
 |------|------|------|
-| `.Codex/skills/<skill-name>/SKILL.md` | Skill 定义 | Codex 标准 skill 结构 |
-| `.Codex/skills/<skill-name>/references/` | 参考文档 | 可选，包含技能相关文档 |
-| `.Codex/skills/<skill-name>/scripts/` | 脚本 | 可选，包含自动化脚本 |
-| `<skill-name>-workspace/` | 测试工作区 | eval 测试用例和结果 |
+| `.agents/skills/<skill-name>/SKILL.md` | Skill 定义 | 仓库统一 Skill 位置 |
+| `.agents/skills/<skill-name>/references/` | 参考文档 | 可选，包含技能相关文档 |
+| `.agents/skills/<skill-name>/scripts/` | 脚本 | 可选，包含自动化脚本 |
+| `reports/skill-evals/<skill-name>/` | 测试工作区 | eval 测试用例和结果 |
 
 ## Minimum Viable Output
 
@@ -234,7 +234,7 @@ python <skill-creator-path>/eval-viewer/generate_review.py <workspace>/iteration
 
 完成所有迭代后：
 
-1. 确认 `.Codex/skills/<skill-name>/SKILL.md` 结构完整
+1. 确认 `.agents/skills/<skill-name>/SKILL.md` 结构完整
 2. 确认 `Changelog` 已更新
 3. 将 skill 目录复制到目标位置
 4. 向用户说明 skill 的触发词和使用方式
@@ -272,13 +272,15 @@ python <skill-creator-path>/eval-viewer/generate_review.py <workspace>/iteration
 
 ## Target Pages
 
-- `.Codex/skills/<skill-name>/SKILL.md`
-- `.Codex/skills/<skill-name>/references/`
-- `.Codex/skills/<skill-name>/scripts/`
+- `.agents/skills/<skill-name>/SKILL.md`
+- `.agents/skills/<skill-name>/references/`
+- `.agents/skills/<skill-name>/scripts/`
+- `reports/skill-evals/<skill-name>/`
 
 ## Changelog
 
 | 日期 | 变更 | 原因 |
 |------|------|------|
+| 2026-07-15 | 输出路径统一为仓库实际使用的 `.agents/skills/`，评测工作区统一到 `reports/skill-evals/` | 修复 Skill 自身与仓库约定不一致 |
 | 2026-04-29 | v2.0: 移除 Python 工具链依赖，重写为 Codex 兼容的手动评测流程；新增 NOT When to Use；Procedure 改为 do/not-do 清单风格 | Codex 无 Python eval 脚本，需手动评测 |
 | 2026-04-26 | 统一结构增强（Input/Output/Dependencies/Min-Complete/Changelog）+ 保留完整工作流 | 修复首次增强时意外裁剪核心流程的问题 |

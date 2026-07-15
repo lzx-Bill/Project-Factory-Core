@@ -113,7 +113,7 @@ YYYY-MM-DD
 |--------|------|-----------------|---------|------|
 | auth | 用户认证与会话管理 | 输入: 凭证；输出: JWT | users, cache | |
 | users | 用户数据管理 | 输入: user_id；输出: User实体 | db | |
-| habits | 习惯数据管理 | 输入: habit_id；输出: Habit实体 | users, db | |
+| records | 核心业务记录管理 | 输入: record_id；输出: Record 实体 | users, db | |
 ```
 
 ## 模块依赖图
@@ -162,6 +162,7 @@ habits ──→ db
 
 | 日期 | 变更 | 原因 |
 |------|------|------|
+| 2026-07-15 | 模块示例改为领域无关资源 | 避免单一业务案例污染 |
 | 2026-04-30 | 修复：ADR 模板新增"决策日期"字段；新增 module-map.md 模板（含模块列表表、依赖图、接口约定） | ADR 缺少决策日期、module-map 无模板 |
 | 2026-04-29 | 新增 ADR 模板（背景/决策/选项对比/后果/改版条件） | Procedure 缺少格式规范 |
 | 2026-04-26 | 增强：新增 Input/Output Schema、Dependencies、Min/Complete Output 两级标准、页面归属表、Changelog | 统一 skill 结构，强化 ADR 的结构化输出 |

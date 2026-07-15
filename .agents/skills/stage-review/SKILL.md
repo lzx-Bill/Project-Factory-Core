@@ -30,6 +30,7 @@ argument-hint: '文档自审、质量检查、review报告、checklist验证'
 | 当前文档 | 待审文档的完整内容 |
 | 阶段类型 | `bootstrap` / `incubation` / `overview` / `requirements` / `architecture` / `delivery`（用于选择checklist） |
 | 附加checklist | 可选，用户可传入自定义检查项覆盖默认 |
+| 模式 | `review`（默认，只报告）或 `fix`（仅修机械性缺口） |
 
 ## Output
 
@@ -55,7 +56,7 @@ argument-hint: '文档自审、质量检查、review报告、checklist验证'
 | 文件 | 说明 |
 |------|------|
 | `reports/stage-review/<stage>-<timestamp>.json` | 结构化评审报告 |
-| `<原文档>` | 如有自动修正，文档已被修改 |
+| `<原文档>` | 仅 `mode=fix` 且属于机械性缺口时允许修改 |
 
 ## Procedure
 
@@ -131,11 +132,11 @@ argument-hint: '文档自审、质量检查、review报告、checklist验证'
 | 0 项 | 0 项 | PASS |
 | 0 项 | ≥1 项 | PASS_WITH_GAPS |
 
-**关键项定义**：表格中判定为"FAIL 即阻断"的行（如 B1/B2/B3 等）。非关键项为 WARNING 项。
+**关键项定义**：判定列为 `FAIL` 或 `FAIL 即阻断` 的检查项。判定列为 `WARNING` 的检查项只产生 `PASS_WITH_GAPS`。
 
-### Step 4: 自动修正（FAIL 项）
+### Step 4: 可选修正
 
-对 FAIL 项，判断是否可自动修正：
+默认 `mode=review`，不修改原文档。只有调用方明确传入 `mode=fix` 时，才判断缺口能否自动修正：
 
 | 可自动修正 | 须报告（不擅自改） |
 |-----------|-------------------|
@@ -145,15 +146,16 @@ argument-hint: '文档自审、质量检查、review报告、checklist验证'
 
 **冲突处理原则**：当一项操作同时满足"可自动修正"和"涉业务方向"时，**须报告**，不擅自修正。
 
-自动修正后，在报告中标注 `auto_fixed: true` 和修正内容。
+自动修正后，在报告中标注 `auto_fixed: true` 和修正内容；修改后必须重新执行对应检查项。
 
 无法自动修正的，标注到 `gaps_unresolved`。
 
 ### Step 5: 输出报告
 
 1. 将评审报告写入 `reports/stage-review/<stage>-<timestamp>.json`
-2. **不修改原文档**（评审标注不追加到原文档）
-3. 返回评审结果摘要
+2. 不向原文档追加 `[REVIEW: ...]` 标记；评审报告是唯一状态来源
+3. `mode=review` 不修改原文；`mode=fix` 只保留已通过重审的机械性修正
+4. 返回评审结果摘要
 
 ## Enriched Behavior
 
@@ -178,5 +180,6 @@ argument-hint: '文档自审、质量检查、review报告、checklist验证'
 
 | 日期 | 变更 | 原因 |
 |------|------|------|
+| 2026-07-15 | 明确 `review/fix` 两种模式；统一 FAIL 聚合规则；评审报告作为唯一状态来源 | 消除“自动改原文”与“不修改原文”的契约冲突 |
 | 2026-04-30 | 修复：内嵌各阶段 checklist（移除外部引用）；新增聚合判定规则（关键项 FAIL→整体 FAIL）；修复冲突处理（涉业务方向不自动修正）；移除原文档追加标注（评审结果不入原文档） | 检查项引用文件不存在、聚合规则缺失、修正权限边界模糊、评审标注污染原文档 |
 | 2026-04-26 | 新建 skill | 从 express-incubate 中抽取自审逻辑为独立技能，实现关注分离 |

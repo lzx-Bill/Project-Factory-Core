@@ -1,0 +1,31 @@
+name: Skill 改进
+description: 提议改进现有 Skill；新增 Skill 前请先说明现有能力缺口
+title: "[Skill] "
+labels: [enhancement]
+body:
+  - type: input
+    id: skill
+    attributes:
+      label: 涉及的 Skill
+      placeholder: express-incubate
+    validations:
+      required: true
+  - type: textarea
+    id: scenario
+    attributes:
+      label: 真实使用场景
+      description: 什么 Prompt 或项目触发了问题？
+    validations:
+      required: true
+  - type: textarea
+    id: gap
+    attributes:
+      label: 当前缺口
+      description: 现有 Skill 为什么无法正确完成？
+    validations:
+      required: true
+  - type: textarea
+    id: minimal_change
+    attributes:
+      label: 最小改进建议
+      description: 优先修改现有规则；如必须新增 Skill，请说明原因。

@@ -217,27 +217,8 @@ alwaysApply: true
 
 ### Phase 7: 生成 PLAIN-LANGUAGE-SUMMARY.md
 
-调用 `plain-language-handoff` skill 生成全员可读概要：
-
-```
-Agent(
-  subagent_type="general-purpose",
-  load_skills=["plain-language-handoff"],
-  run_in_background=false,
-  prompt="
-TASK: 为项目 {项目名} 生成 PLAIN-LANGUAGE-SUMMARY.md
-INPUT: 项目目录 {项目路径}，包含完整的 wiki 设计文档
-OUTPUT: implementation-kit/PLAIN-LANGUAGE-SUMMARY.md
-MUST DO:
-  - 读取所有 wiki 文档，提取关键信息
-  - 用通俗语言重写，不用技术术语
-  - 确保 AI 能基于此文档完整实现
-MUST NOT DO:
-  - 不写代码或技术细节
-  - 不使用技术术语（如 API、数据库、前端等）
-"
-)
-```
+主 Agent 完整读取 `../plain-language-handoff/SKILL.md`，按其规则同步生成
+`implementation-kit/PLAIN-LANGUAGE-SUMMARY.md`。不要再派发嵌套 Agent；这样可避免并发写入 kit 和无法确认子任务完成的问题。
 
 ### Phase 8: 最终检查
 
@@ -270,6 +251,7 @@ MUST NOT DO:
 
 | 日期 | 变更 | 原因 |
 |------|------|------|
-| 2026-04-29 | v1.2: Codex 适配 — `task()` → `Agent()` | Codex Agent 工具语法差异 |
+| 2026-07-15 | 移除失效的子任务调用示例，改为主 Agent 同步读取并执行 plain-language-handoff | 适配当前 Codex 工具并避免嵌套任务竞写 |
+| 2026-04-29 | v1.2：适配当时的 Codex 子任务语法 | 工具接口变化 |
 | 2026-04-27 | v1.1: 新增 Phase 7 调用 plain-language-handoff skill | implementation-kit 生成后自动产出全员可读概要 |
 | 2026-04-26 | v1.0 新建 skill | 桥接设计与实现：自动编译设计文档为多工具 AI 上下文文件 |

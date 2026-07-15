@@ -1,0 +1,30 @@
+name: 执行问题
+description: 报告可复现的 Skill、模板或工作流问题
+title: "[Bug] "
+labels: [bug]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: 问题
+      description: 实际发生了什么？
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: 复现方式
+      description: 请提供用户 Prompt、使用的 Skill、关键文件和执行顺序。
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: 期望结果
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: 证据
+      description: 可粘贴评审报告、错误输出或最小示例；请移除敏感信息。
