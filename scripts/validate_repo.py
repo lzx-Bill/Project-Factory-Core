@@ -85,6 +85,9 @@ def check_public_entrypoints() -> None:
             fail(f"README missing {heading}")
     for path in (
         ROOT / "CONTRIBUTING.md",
+        ROOT / "LICENSE",
+        ROOT / "SECURITY.md",
+        ROOT / ".github" / "PUBLIC_RELEASE_CHECKLIST.md",
         ROOT / ".github" / "pull_request_template.md",
         ROOT / ".github" / "workflows" / "validate.yml",
     ):

@@ -72,6 +72,7 @@ flowchart LR
 | [PROJECT_WIKI_TEMPLATE.md](PROJECT_WIKI_TEMPLATE.md) | 项目目录、页面骨架和追踪链路的唯一模板标准 |
 | [CONTRIBUTING.md](CONTRIBUTING.md) | Skill 与文档改进的贡献方式 |
 | [LICENSE](LICENSE) | MIT 开源许可证 |
+| [SECURITY.md](SECURITY.md) | 私密安全问题报告规则 |
 
 Skills 按职责分为：
 
