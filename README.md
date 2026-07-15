@@ -74,6 +74,7 @@ flowchart LR
 | [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) | 社区协作与行为准则 |
 | [LICENSE](LICENSE) | MIT 开源许可证 |
 | [SECURITY.md](SECURITY.md) | 私密安全问题报告规则 |
+| [Project Factory Showcase](https://github.com/lzx-Bill/Project-Factory-Showcase) | 按阶段保留真实孵化过程和验证结果 |
 
 Skills 按职责分为：
 
@@ -108,13 +109,13 @@ Skills 按职责分为：
 
 ## 当前状态
 
-项目处于早期公开准备阶段。核心工作流和 34 个 Skill 已就绪，仓库校验可运行：
+项目已公开，核心工作流和 34 个 Skill 已就绪，仓库校验可运行：
 
 ```powershell
 python scripts/validate_repo.py
 ```
 
-近期重点是用更多真实项目验证 Skill 的触发准确性、阶段依赖和交接质量。
+首个真实案例 [Feedback Compass](https://github.com/lzx-Bill/Project-Factory-Showcase/tree/main/feedback-compass) 已进入启动阶段。近期重点是按真实工作流逐步验证 Skill 的触发准确性、阶段依赖和交接质量。
 
 ## 参与贡献
 
