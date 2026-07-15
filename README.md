@@ -9,6 +9,7 @@
 ![Docs First](https://img.shields.io/badge/approach-docs--first-4F46E5)
 ![Skills](https://img.shields.io/badge/skills-34-0EA5E9)
 ![Language](https://img.shields.io/badge/docs-中文-EF4444)
+![License](https://img.shields.io/badge/license-MIT-22C55E)
 
 </div>
 
@@ -70,6 +71,7 @@ flowchart LR
 | [.agents/skills/](.agents/skills/) | 34 个项目孵化、设计、治理、质量和交接 Skills |
 | [PROJECT_WIKI_TEMPLATE.md](PROJECT_WIKI_TEMPLATE.md) | 项目目录、页面骨架和追踪链路的唯一模板标准 |
 | [CONTRIBUTING.md](CONTRIBUTING.md) | Skill 与文档改进的贡献方式 |
+| [LICENSE](LICENSE) | MIT 开源许可证 |
 
 Skills 按职责分为：
 
@@ -125,4 +127,4 @@ python scripts/validate_repo.py
 
 ## License
 
-开源许可证尚待仓库所有者确认。在许可证加入前，本仓库默认保留所有权利；请勿假定可以复制、修改或再分发。
+本项目采用 [MIT License](LICENSE)，允许在保留版权和许可声明的前提下使用、修改和分发。
