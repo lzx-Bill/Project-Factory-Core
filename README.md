@@ -71,6 +71,7 @@ flowchart LR
 | [.agents/skills/](.agents/skills/) | 34 个项目孵化、设计、治理、质量和交接 Skills |
 | [PROJECT_WIKI_TEMPLATE.md](PROJECT_WIKI_TEMPLATE.md) | 项目目录、页面骨架和追踪链路的唯一模板标准 |
 | [CONTRIBUTING.md](CONTRIBUTING.md) | Skill 与文档改进的贡献方式 |
+| [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) | 社区协作与行为准则 |
 | [LICENSE](LICENSE) | MIT 开源许可证 |
 | [SECURITY.md](SECURITY.md) | 私密安全问题报告规则 |
 
